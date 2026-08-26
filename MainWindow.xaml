@@ -1,0 +1,159 @@
+﻿<Window x:Class="Modbus_Debug_Tool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Modbus_Debug_Tool"
+        mc:Ignorable="d"
+        Title="Modbus Master-Metricorr ICL-M &amp; TCP 測試操控程式 v1.35 By_混世魔王lmwu" Height="945" Width="1051" ResizeMode="CanMinimize" Icon="/moon-star-ramadan-arabic-islamic-celebration-silhouette-style-icon-free-vector.jpg" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10,0,4,0" Height="894" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" MinWidth="0"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="452.226"/>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" MinWidth="588" />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left: Server / Client controls -->
+        <!-- Right: Log window -->
+        <GroupBox Grid.Column="8" Header="Log" Margin="0,0,0,8" HorizontalAlignment="Center" Width="541">
+            <Grid Margin="0,0,-2,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0*"/>
+                    <RowDefinition Height="695*"/>
+                    <RowDefinition Height="169*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="LogTextBox" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Grid.RowSpan="2" HorizontalAlignment="Center" Width="503" Margin="0,10,0,94" />
+                <TextBox x:Name="P1ThicknessTextBox" Margin="14,643,345,26" Grid.RowSpan="2" Background="{x:Null}" />
+                <TextBox x:Name="P1JACTextBox" Margin="14,674,345,-5" Grid.RowSpan="2" Background="{x:Null}" />
+                <TextBox x:Name="P1JDCTextBox" Margin="14,10,345,133" Background="{x:Null}" Grid.Row="2" />
+                <TextBox x:Name="P1EonTextBox" Margin="14,40,345,103" Background="{x:Null}" Grid.Row="2" />
+                <TextBox x:Name="P1EoffCouponTextBox" Margin="14,71,345,72" Background="{x:Null}" Grid.Row="2" />
+                <TextBox x:Name="P1TemperatureTextBox" Margin="14,102,345,41" Background="{x:Null}" Grid.Row="2" />
+                <TextBox x:Name="P1LossTextBox" Margin="14,133,345,10" Background="{x:Null}" Grid.Row="2" />
+                <TextBox x:Name="P2ThicknessTextBox" Margin="344,643,14,26" Grid.RowSpan="2" Background="{x:Null}" />
+                <TextBox x:Name="P2JACTextBox" Margin="344,674,14,-5" Grid.RowSpan="2" Background="{x:Null}" />
+                <TextBox x:Name="P2JDCTextBox" Margin="344,10,14,133" Background="{x:Null}" Grid.Row="2" />
+                <TextBox x:Name="P2EonTextBox" Margin="344,40,14,103" Background="{x:Null}" Grid.Row="2" />
+                <TextBox x:Name="P2EoffCouponTextBox" Margin="344,71,14,72" Background="{x:Null}" Grid.Row="2" />
+                <TextBox x:Name="P2TemperatureTextBox" Margin="344,102,14,41" Background="{x:Null}" Grid.Row="2" />
+                <TextBox x:Name="P2LossTextBox" Margin="344,133,14,10" Background="{x:Null}" Grid.Row="2" />
+                <Label Content="=探頭試片1=" Margin="46,606,0,57" HorizontalAlignment="Left" Width="105" Grid.RowSpan="2" FontSize="16" FontWeight="Bold" />
+                <Label Content="=探頭試片2=" Margin="378,606,0,57" RenderTransformOrigin="0.695,0.287" Width="108" HorizontalAlignment="Left" Grid.RowSpan="2" FontSize="16" FontWeight="Bold" />
+                <Label Content="即時試片厚度(μm)" Margin="0,643,0,26" HorizontalAlignment="Center" Width="128" Grid.RowSpan="2" FontSize="14" />
+                <Label Content="即時AC電流密度(A/m²)" Margin="0,674,0,164" HorizontalAlignment="Center" Width="158" Grid.RowSpan="3" FontSize="14" />
+                <Label Content="即時DC電流密度(A/m²)" Margin="0,10,0,133" HorizontalAlignment="Center" Width="158" Grid.Row="2" FontSize="14" />
+                <Label Content="結構On電位(V)" Margin="0,40,0,103" HorizontalAlignment="Center" Width="108" Grid.Row="2" FontSize="14" />
+                <Label Content="試片Off電位(V)" Margin="0,71,0,72" HorizontalAlignment="Center" Width="108" Grid.Row="2" FontSize="14" />
+                <Label Content="探頭環境測溫(°C)" Margin="0,102,0,41" HorizontalAlignment="Center" Width="128" Grid.Row="2" FontSize="14" />
+                <Label Content="試片減薄(%)" Margin="0,133,0,10" HorizontalAlignment="Center" Width="88" Grid.Row="2" FontSize="14" />
+            </Grid>
+        </GroupBox>
+        <StackPanel Grid.Column="0" Orientation="Vertical" Grid.ColumnSpan="6" Margin="0,0,6,1">
+            <GroupBox Header="Modbus TCP伺服器 (RTU over TCP)" Margin="0,0,0,8">
+                <StackPanel Margin="8">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Label Content="Port:" Width="40" VerticalAlignment="Center" />
+                        <TextBox x:Name="PortTextBox" Width="80" />
+                        <Button x:Name="StartServerButton" Content="啟動" Width="80" Margin="8,0,0,0" Click="StartServerButton_Click" />
+                        <Button x:Name="StopServerButton" Content="停止" Width="80" Margin="8,0,0,0" Click="StopServerButton_Click" IsEnabled="False" />
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="已接入之TCP邊緣閘道" Margin="0,0,0,8">
+                <StackPanel Margin="8">
+                    <TextBlock Margin="0,0,0,4"><Run Language="zh-tw" Text="將接收"/><Run Text="Modbus"/><Run Language="zh-tw" Text="廣播"/><Run Text="指令"/><Run Language="zh-tw" Text="的"/><Run Text="所有TCP客戶端(Slaves)"/><Run Text="閘道"/><Run Text=" "/><Run Text=":"/></TextBlock>
+                    <ListBox x:Name="ClientsListBox" Height="58" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Header="對Slave發送之Modbus(RTU over TCP)請求內容" Margin="0,0,0,8" Height="482">
+                <StackPanel Margin="8,0,8,0" Height="446">
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                        <Label Content="Slave ID:" Width="62" VerticalAlignment="Center" />
+                        <TextBox x:Name="SlaveIdTextBox" Width="46" />
+                        <Label Content="Address:" Width="63" Margin="8,0,0,0" VerticalAlignment="Center" />
+                        <TextBox x:Name="AddressTextBox" Width="69" />
+                        <Label Content="Qty(Fn 3):" Width="65" Margin="8,0,0,0" VerticalAlignment="Center" />
+                        <TextBox x:Name="QuantityTextBox" Width="66" RenderTransformOrigin="1.283,0.418" Height="26" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                        <Label Content="Function:" Width="80" VerticalAlignment="Center" />
+                        <ComboBox x:Name="FunctionComboBox" Width="220" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                        <Label Content="Value (Fn 6):" Width="80" VerticalAlignment="Top" />
+                        <TextBox x:Name="DataTextBox" Width="65" Height="26" AcceptsReturn="True" TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button x:Name="SendButton" Content="發送" Width="100" Click="SendButton_Click" />
+                    </StackPanel>
+
+                    <!-- Quick action: read address 1016, qty=1. Textbox for quick slave id next to button -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,8,0,0">
+                        <Label Content="Slave ID:" Width="62" />
+                        <TextBox x:Name="QuickSlaveIdTextBox" Width="49" TextChanged="QuickSlaveIdTextBox_TextChanged" />
+                        <Button x:Name="QuickRead1016Button" Content="讀取Slave ID" Width="80" Click="QuickRead1016Button_Click" Margin="8,0,0,0" />
+                        <Button x:Name="QuickRead1038Button" Content="Delay of Eoff coupon?" Width="141" Click="QuickRead1038Button_Click" Margin="8,0,0,0" />
+                    </StackPanel>
+                    <Grid Height="285" Width="395" Margin="0,8,0,0" HorizontalAlignment="Center">
+                        <Button x:Name="QuickRead1199Button" Content="採集量測(~45秒)" Width="106" Click="QuickRead1199Button_Click" HorizontalAlignment="Left" Height="23" VerticalAlignment="Top" />
+                        <Button x:Name="QuickRead1200Button" Content="量測狀態?" Click="QuickRead1200Button_Click" RenderTransformOrigin="0.419,-0.816" HorizontalAlignment="Left" Margin="0,23,0,0" Width="106" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" Height="20" />
+                        <Button x:Name="QuickRead1055Button" Content="探頭1序號" Click="QuickRead1055Button_Click" RenderTransformOrigin="0.419,-0.816" HorizontalAlignment="Left" Margin="0,63,0,0" Width="106" VerticalAlignment="Top" Height="20" d:LayoutOverrides="VerticalAlignment" />
+                        <Button x:Name="QuickRead1127Button" Content="探頭2序號" Click="QuickRead1127Button_Click" RenderTransformOrigin="0.419,-0.816" HorizontalAlignment="Left" Margin="0,138,0,0" Width="106" VerticalAlignment="Top" Height="20" />
+                        <Button x:Name="QuickRead1071Button" Content="試片1尺寸(cm²)" Click="QuickRead1071Button_Click" RenderTransformOrigin="0.419,-0.816" HorizontalAlignment="Left" Margin="0,83,0,0" Width="106" VerticalAlignment="Top" Height="20" d:LayoutOverrides="VerticalAlignment" />
+                        <Button x:Name="QuickRead1073Button" Content="試片1初始厚(μm)" Click="QuickRead1073Button_Click" RenderTransformOrigin="0.419,-0.816" HorizontalAlignment="Left" Margin="0,103,0,0" Width="106" VerticalAlignment="Top" Height="20" />
+                        <Button x:Name="QuickRead1143Button" Content="試片2尺寸(cm²)" Click="QuickRead1143Button_Click" RenderTransformOrigin="0.419,-0.816" HorizontalAlignment="Left" Margin="0,158,0,0" Width="106" VerticalAlignment="Top" Height="20" />
+                        <Button x:Name="QuickRead1145Button" Content="試片2初始厚(μm)" Click="QuickRead1145Button_Click" RenderTransformOrigin="0.419,-0.816" HorizontalAlignment="Left" Margin="0,178,0,0" Width="106" VerticalAlignment="Top" Height="20" />
+                        <Label Content="=探頭試片1=" Margin="159,0,0,262" HorizontalAlignment="Left" Width="82" />
+                        <Label Content="=探頭試片2=" Margin="293,0,0,262" RenderTransformOrigin="0.695,0.287" Width="85" HorizontalAlignment="Left" />
+                        <Button x:Name="QuickRead1225Button" Content="AC電流密度(A/m²)" Click="QuickRead1225Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="144,53,139,0" VerticalAlignment="Top" Height="20" d:LayoutOverrides="VerticalAlignment" />
+                        <Button x:Name="QuickRead1231Button" Content="DC電流密度(A/m²)" Click="QuickRead1231Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="144,78,139,0" VerticalAlignment="Top" Height="20" d:LayoutOverrides="VerticalAlignment" />
+                        <Button x:Name="QuickRead1233Button" Content="結構On電位(V)" Click="QuickRead1233Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="144,103,139,0" VerticalAlignment="Top" Height="20" />
+                        <Button x:Name="QuickRead1235Button" Content="試片Off電位(V)" Click="QuickRead1235Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="144,128,139,0" VerticalAlignment="Top" Height="20" />
+                        <Button x:Name="QuickRead1239Button" Content="探頭環境測溫(°C)" Click="QuickRead1239Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="144,153,139,0" VerticalAlignment="Top" Height="20" />
+                        <Button x:Name="QuickRead1245Button" Content="試片減薄(%)" Click="QuickRead1245Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="144,178,139,0" VerticalAlignment="Top" Height="20" />
+                        <Button x:Name="QuickRead1263Button" Content="試片厚度(μm)" Click="QuickRead1263Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="279,28,4,0" VerticalAlignment="Top" Height="20" d:LayoutOverrides="VerticalAlignment" Width="112" />
+                        <Button x:Name="QuickRead1269Button" Content="AC電流密度(A/m²)" Click="QuickRead1269Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="279,53,4,0" VerticalAlignment="Top" Height="20" d:LayoutOverrides="VerticalAlignment" Width="112" />
+                        <Button x:Name="QuickRead1275Button" Content="DC電流密度(A/m²)" Click="QuickRead1275Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="279,78,4,0" VerticalAlignment="Top" Height="20" d:LayoutOverrides="VerticalAlignment" Width="112" />
+                        <Button x:Name="QuickRead1277Button" Content="結構On電位(V)" Click="QuickRead1277Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="279,103,4,0" VerticalAlignment="Top" Height="20" Width="112" />
+                        <Button x:Name="QuickRead1279Button" Content="試片Off電位(V)" Click="QuickRead1279Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="279,128,4,0" VerticalAlignment="Top" Height="20" Width="112" />
+                        <Button x:Name="QuickRead1283Button" Content="探頭環境測溫(°C)" Click="QuickRead1283Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="279,153,4,0" VerticalAlignment="Top" Height="20" Width="112" />
+                        <Button x:Name="QuickRead1289Button" Content="試片減薄(%)" Click="QuickRead1289Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="279,178,4,0" VerticalAlignment="Top" Height="20" Width="112" />
+                        <Button x:Name="QuickRead1219Button" Content="試片厚度(μm)" Click="QuickRead1219Button_Click" RenderTransformOrigin="0.419,-0.816" Margin="144,28,139,0" VerticalAlignment="Top" Height="20" d:LayoutOverrides="VerticalAlignment" />
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="簡易說明" Height="201" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch">
+                <TextBlock TextWrapping="Wrap" RenderTransformOrigin="0.609,0.183" Height="162" ScrollViewer.VerticalScrollBarVisibility="Disabled" Margin="1,0,4,0" FontFamily="Microsoft YaHei">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform AngleX="0.818"/>
+                            <RotateTransform/>
+                            <TranslateTransform X="0.521"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform><Run Text="A. 每支"/><Run Text=" "/><Run Text="ICL-M"/><Run Text=" 之 Modbus Slave "/><Run Text="ID"/><Run Text=" 均可由"/><Run Language="zh-tw" Text="使用者先行定義(Fn 6 Addr 1016)"/><Run Text="。"/><LineBreak/><Run Text="B. "/><Run Text="Function 3 "/><Run Text="讀取"/><Run Text="單一個"/><Run Text="Holding"/><Run Text="暫存器，"/><Run Text="依需要的查詢功能，查閱原廠提供"/><Run Text="  "/><LineBreak/><Run Text="    "/><Run Text="之Register Map"/><Run Text="，"/><Run Text="填入暫存器起始"/><Run Text="位址 Address"/><Run Text=" "/><Run Text="與佔位長度"/><Run Text=" Qty。"/><Run Text=" "/><LineBreak/><Run Text="C"/><Run Text=". "/><Run Text="Function 6 "/><Run Text="寫入"/><Run Text="單一個Holding"/><Run Text="暫存器，"/><Run Text="依預發送的指令/設定功能，查閱"/><LineBreak/><Run Text="    "/><Run Text="原廠提供之"/><Run Text="Register Map"/><Run Text="，"/><Run Text="填入暫存器起始"/><Run Text="位址 Address"/><Run Text="與"/><Run Text="代碼"/><Run Text="或"/><Run Text="數值 "/><LineBreak/><Run Text="    "/><Run Text="Value。"/><LineBreak/><Run Text="D. 每支ICL-M(Modbus Slave)擁有Ch1與Ch2對應於Probe1與Probe2"/><Run Text="。"/><LineBreak/><Run Text="E. 直接點擊各ICL-M最近觀測量功能按鈕，腐蝕參數經轉換即顯示於右側。"/><LineBreak/><Run/></TextBlock>
+            </GroupBox>
+        </StackPanel>
+
+        <!-- Left: Server / Client controls -->
+
+        <!-- Right: Log window -->
+    </Grid>
+</Window>
