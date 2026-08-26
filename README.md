@@ -1,2 +1,1 @@
-# ICL-M-Socket-Server
-TCP 遠端操作丹麥 MetriCorr ICL-M
+# TCP Socket Server 遠端操作丹麥 MetriCorr ICL-M
